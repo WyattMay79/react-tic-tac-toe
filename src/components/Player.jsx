@@ -1,12 +1,15 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({ initialName, symbol, isActive, onChangeName }) {
     const [ playerName, setPlayerName] = useState(initialName);
     const [isEditing, setIsEditing] = useState(false);
 
     function handleEditClick() {
         setIsEditing(isEditing => !isEditing); // react schedules the update to the state, which takes a certain amount of time, so it's not instantaneous
         //setIsEditing((editing) => !editing); //it's best practice to use a function instead of !editing to make the state chandge for that reason
+        if (isEditing) {
+            onChangeName(symbol, playerName);
+        }
     }
 
     function handleChange(event){
